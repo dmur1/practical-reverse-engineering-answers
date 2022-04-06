@@ -26,7 +26,7 @@ loc_10001C88:                               ; we reach this point if the idtr ba
     call        CreateToolhelp32Snapshot    ;
     mov         edi, eax                    ; edi = HANDLE snapshot = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 )
     cmp         edi, 0FFFFFFFFh             ;
-    jnz         short loc_10001CB9          ; if ( snapshot != -1 ) { jmp loc_10001CB9; }
+    jnz         short loc_10001CB9          ; if ( snapshot != INVALID_HANDLE_VALUE ) { jmp loc_10001CB9; }
     xor         eax, eax                    ; eax = 0
     pop         edi                         ; restore the value to the non-volatile register edi ( line 6 )
     mov         esp, ebp                    ; reset the stack pointer to the address of the stack base pointer

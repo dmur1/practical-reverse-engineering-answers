@@ -64,8 +64,8 @@ loc_10001CF0:                               ; we reach this if the first found p
     test        eax, eax                    ;
     jnz         short loc_10001CF0          ; if ( stricmp( process_name, process_name_to_search_for ) != 0 ) { jmp loc_10001CF0; }
 loc_10001D16:                               ; we reach this point if we found a match for a process with our name
-    mov         eax, [ebp-118h]             ; DWORD process_id = process_entry.th32ProcessID?
-    mov         ecx, [ebp-128h]             ; DWORD module_id = process_entry.th32ModuleID?
+    mov         eax, [ebp-118h]             ; DWORD th32ParentProcessID
+    mov         ecx, [ebp-128h]             ; DWORD th32ProcessID
     jmp         short loc_10001D2A          ;
 loc_10001D24:                               ; we reach this point when there are no more processes to enumerate
     mov         eax, [ebp+0Ch]              ; DWORD fdwReason

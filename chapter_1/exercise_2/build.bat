@@ -9,7 +9,8 @@ if not exist build mkdir build
 pushd build
 del * /Q
 
-cl.exe /W3 /WX /c /O2 /Oy- /D_UNICODE /GS- ..\decompiled.cpp
+cl.exe /W3 /WX /O2 /Oy- /D_UNICODE /GS- /LD /Zi ..\decompiled.cpp
 dumpbin.exe /disasm decompiled.obj > code.asm
+cl.exe /W3 /WX /Od /Oy- /D_UNICODE /GS- /Zi ..\main.cpp
 
 popd

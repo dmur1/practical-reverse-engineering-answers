@@ -1,0 +1,5 @@
+The @ suffix indicates that the function uses the __stdcall calling convention
+and the number that follows specifies the number of bytes used by parameters
+on the stack. this is important because the callee needs to pop these bytes
+from the stack and will typically do this using a ret instruction followed by
+the number of bytes.

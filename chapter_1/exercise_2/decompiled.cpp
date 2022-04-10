@@ -11,7 +11,7 @@ struct IDTR {
 // as an example
 char const* process_name = "explorer.exe";
 
-BOOL __stdcall
+BOOL WINAPI
 DllMain( HINSTANCE hinstDLL, DWORD fwdReason, LPVOID lpvReserved ) {
     IDTR idtr;
     __sidt( &idtr );
@@ -37,8 +37,7 @@ DllMain( HINSTANCE hinstDLL, DWORD fwdReason, LPVOID lpvReserved ) {
 
     if ( Process32First( snapshot, &process_entry ) ) {
         do {
-            if ( _stricmp( process_name, process_entry.szExeFile ) == 0 )
-            {
+            if ( _stricmp( process_name, process_entry.szExeFile ) == 0 ) {
                 process_parent_id = process_entry.th32ParentProcessID;
                 process_id = process_entry.th32ProcessID;
                 break;
@@ -46,12 +45,9 @@ DllMain( HINSTANCE hinstDLL, DWORD fwdReason, LPVOID lpvReserved ) {
         } while ( Process32Next( snapshot, &process_entry ) );
     }
 
-    if ( process_parent_id == process_id )
-    {
+    if ( process_parent_id == process_id ) {
         if ( fwdReason == DLL_PROCESS_ATTACH )
-        {
-            CreateThread( 0, 0, 0, (LPTHREAD_START_ROUTINE)0x100032D0, 0, 0 );
-        }
+            CreateThread( 0, 0, 0, ( LPTHREAD_START_ROUTINE )0x100032D0, 0, 0 );
 
         return true;
     }

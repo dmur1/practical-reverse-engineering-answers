@@ -9,7 +9,6 @@ _strlen_1 proc
     xor         eax, eax
     xor         ecx, ecx
     not         ecx
-    cld
     repne scasb
     not         ecx
     sub         ecx, 1

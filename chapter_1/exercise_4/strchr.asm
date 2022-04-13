@@ -26,8 +26,8 @@ _strchr_1_loc_1:
     pop         edi
     ret
 _strchr_1_loc_2:
-    lea         eax, [edi+ecx-1]                ;
-    jmp         _strchr_1_loc_1                 ; return &str[ strlen( str ) + 1 ]
+    lea         eax, [edi+ecx-1]                ; &str[ strlen( str ) + 1 ]
+    jmp         _strchr_1_loc_1                 ; return ch == \'0' ? &str[ strlen( str ) + 1 ] : ...
 _strchr_1 endp
 
 end

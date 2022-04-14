@@ -24,7 +24,7 @@ int main( int argc, char** argv ) {
     printf( "%d\n", ( int )strlen_4( "" ) ); // 0
     printf( "%d\n", ( int )strlen_4( "1" ) ); // 1
     printf( "%d\n", ( int )strlen_4( "22" ) ); // 2
-    printf( "%d\n", ( int )strlen_4( "Hello, world!\n" ) ); // 14
+    printf( "%d\n", ( int )strlen_4( "Hello, world! and a bit more!!\n" ) ); // 31
 
     return 0;
 }

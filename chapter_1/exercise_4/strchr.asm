@@ -128,4 +128,65 @@ _strchr_3_loc_5:
     ret
 _strchr_3 endp
 
+; char* strchr_4( char const* str, int ch )
+; check 16 bytes - inspired by https://www.agner.org/optimize/optimizing_assembly.pdf
+_strchr_4 proc
+    push        ebx
+    push        edi
+    mov         eax, [esp+12]       ; char const* str
+    mov         edi, [esp+16]       ; int ch
+    imul        edi, edi, 01010101h
+    movd        xmm1, edi
+    pshufd      xmm1, xmm1, 0
+    pxor        xmm0, xmm0
+    mov         ecx, eax
+    and         ecx, 15
+    and         eax, -16
+    movdqa      xmm2, [eax]
+    movdqa      xmm3, xmm2
+    pcmpeqb     xmm2, xmm0          ; test for zero
+    pcmpeqb     xmm3, xmm1          ; test for ch
+    pmovmskb    edx, xmm2
+    pmovmskb    ebx, xmm3
+    shr         edx, cl
+    shl         edx, cl             ; shift invalid bits out of edx
+    shr         ebx, cl
+    shl         ebx, cl             ; shift invalid bits out of ebx
+    bsf         edx, edx
+    jnz         _strchr_4_loc_3     ; jump if found a zero
+    bsf         ebx, ebx
+    jnz         _strchr_4_loc_2     ; jump if found ch
+_strchr_4_loc_1:
+    add         eax, 16
+    movdqa      xmm2, [eax]
+    movdqa      xmm3, xmm2
+    pcmpeqb     xmm2, xmm0          ; test for zero
+    pcmpeqb     xmm3, xmm1          ; test for ch
+    pmovmskb    edx, xmm2
+    pmovmskb    ebx, xmm3
+    bsf         edx, edx
+    jnz         _strchr_4_loc_3     ; found a zero
+    bsf         ebx, ebx
+    jz          _strchr_4_loc_1     ; didn't find ch
+_strchr_4_loc_2:
+    add         eax, ebx
+    pop         edi
+    pop         ebx
+    ret
+_strchr_4_loc_3:
+    bsf         ebx, ebx
+    jz          _strchr_4_loc_4
+    cmp         edx, ebx
+    jb          _strchr_4_loc_4
+    add         eax, ebx
+    pop         edi
+    pop         ebx
+    ret
+_strchr_4_loc_4:
+    xor         eax, eax
+    pop         edi
+    pop         ebx
+    ret
+_strchr_4 endp
+
 end

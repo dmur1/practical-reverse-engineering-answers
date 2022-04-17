@@ -57,4 +57,75 @@ _strchr_2_loc_3:
     ret                                         ; return &str[ found ]
 _strchr_2 endp
 
+; char* strchr_3( char const* str, int ch )
+; check 4 bytes - inspired by https://www.agner.org/optimize/optimizing_assembly.pdf
+_strchr_3 proc
+    push        ebx
+    push        edi
+    push        esi
+    mov         ecx, [esp+16]
+    mov         edi, [esp+20]
+    imul        edi, edi, 01010101h
+    mov         eax, ecx
+    and         ecx, 3
+    jz          _strchr_3_loc_3
+_strchr_3_loc_1:
+    and         eax, -4
+    mov         ebx, [eax]
+    shl         ecx, 3
+    mov         edx, -1
+    shl         edx, cl
+    not         edx
+    or          ebx, edx
+    mov         esi, ebx
+    xor         esi, edi
+    lea         ecx, [esi-01010101h]
+    not         esi
+    and         esi, ecx
+    and         esi, 80808080h
+    lea         ecx, [ebx-01010101h]
+    not         ebx
+    and         ecx, ebx
+    and         ecx, 80808080h
+    test        esi, esi
+    jnz         _strchr_3_loc_4
+    test        ecx, ecx
+    jnz         _strchr_3_loc_4
+_strchr_3_loc_2:
+    add         eax, 4
+_strchr_3_loc_3:
+    mov         ebx, [eax]
+    mov         esi, ebx
+    xor         esi, edi
+    lea         ecx, [esi-01010101h]
+    not         esi
+    and         esi, ecx
+    and         esi, 80808080h
+    lea         ecx, [ebx-01010101h]
+    not         ebx
+    and         ecx, ebx
+    and         ecx, 80808080h
+    test        ecx, ecx
+    jnz         _strchr_3_loc_4
+    test        esi, esi
+    jz          _strchr_3_loc_2
+_strchr_3_loc_4:
+    bsf         esi, esi
+    bsf         ecx, ecx
+    cmp         esi, ecx
+    jb          _strchr_4_loc_5
+    shr         esi, 3
+    add         eax, esi
+    pop         esi
+    pop         edi
+    pop         ebx
+    ret
+_strchr_4_loc_5:
+    xor         eax, eax
+    pop         esi
+    pop         edi
+    pop         ebx
+    ret
+_strchr_3 endp
+
 end

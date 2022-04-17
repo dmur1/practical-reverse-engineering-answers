@@ -2,6 +2,7 @@
 
 extern "C" char* strchr_1( char const* str, int ch );
 extern "C" char* strchr_2( char const* str, int ch );
+extern "C" char* strchr_3( char const* str, int ch );
 
 int main( int argc, char** argv ) {
     printf( "%s\n", strchr_1( "Test", 'z' ) );
@@ -21,6 +22,15 @@ int main( int argc, char** argv ) {
     printf( "%s\n", strchr_2( "This is a slightly longer test!", ' ' ) );
     printf( "%s\n", strchr_2( "", 'y' ) );
     printf( "%s\n", strchr_2( "", '\0' ) );
+
+    printf( "%s\n", strchr_3( "Test", 'z' ) );
+    printf( "%s\n", strchr_3( "Test", 'e' ) );
+    printf( "%s\n", strchr_3( "Test", 's' ) );
+    printf( "%s\n", strchr_3( "Test", 't' ) );
+    printf( "%s\n", strchr_3( "This is a slightly longer test!", 'y' ) );
+    printf( "%s\n", strchr_3( "This is a slightly longer test!", ' ' ) );
+    printf( "%s\n", strchr_3( "", 'y' ) );
+    printf( "%s\n", strchr_3( "", '\0' ) );
 
     return 0;
 }

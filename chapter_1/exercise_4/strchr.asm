@@ -113,14 +113,14 @@ _strchr_3_loc_4:
     bsf         esi, esi
     bsf         ecx, ecx
     cmp         esi, ecx
-    jb          _strchr_4_loc_5
+    jb          _strchr_3_loc_5
     shr         esi, 3
     add         eax, esi
     pop         esi
     pop         edi
     pop         ebx
     ret
-_strchr_4_loc_5:
+_strchr_3_loc_5:
     xor         eax, eax
     pop         esi
     pop         edi

@@ -177,11 +177,7 @@ _strchr_4_loc_3:
     bsf         ebx, ebx
     jz          _strchr_4_loc_4
     cmp         edx, ebx
-    jb          _strchr_4_loc_4
-    add         eax, ebx
-    pop         edi
-    pop         ebx
-    ret
+    jae         _strchr_4_loc_2
 _strchr_4_loc_4:
     xor         eax, eax
     pop         edi

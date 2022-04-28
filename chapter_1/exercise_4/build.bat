@@ -18,4 +18,7 @@ cl.exe /W3 /WX /Od /Zi ..\test_strlen.cpp strlen.obj
 ml.exe /W3 /WX /c /Zi ..\strchr.asm
 cl.exe /W3 /WX /Od /Zi ..\test_strchr.cpp strchr.obj
 
+ml.exe /W3 /WX /c /Zi ..\memcpy.asm
+cl.exe /W3 /WX /Od /Zi ..\test_memcpy.cpp memcpy.obj
+
 popd

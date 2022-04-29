@@ -7,9 +7,12 @@ _memcpy_1 proc
     push    edi
     push    esi
     mov     ecx, dword ptr [esp+20] ; size_t n
+    test    ecx, ecx
+    jz      _memcpy_1_loc_1
     mov     esi, dword ptr [esp+16] ; void* src
     mov     edi, dword ptr [esp+12] ; void* dst
     rep     movsb
+_memcpy_1_loc_1:
     mov     eax, dword ptr [esp+12] ; return dst
     pop     esi
     pop     edi
@@ -22,10 +25,10 @@ _memcpy_2 proc
     push    edi
     push    esi
     mov     edx, dword ptr [esp+20] ; size_t n
-    mov     esi, dword ptr [esp+16] ; void* src
-    mov     edi, dword ptr [esp+12] ; void* dst
     test    edx, edx
     jz      _memcpy_2_loc_2
+    mov     esi, dword ptr [esp+16] ; void* src
+    mov     edi, dword ptr [esp+12] ; void* dst
     xor     ecx, ecx
 _memcpy_2_loc_1:
     movzx   eax, byte ptr [esi+ecx]

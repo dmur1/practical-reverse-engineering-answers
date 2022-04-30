@@ -21,4 +21,7 @@ cl.exe /W3 /WX /Od /Zi ..\test_strchr.cpp strchr.obj
 ml.exe /W3 /WX /c /Zi ..\memcpy.asm
 cl.exe /W3 /WX /Od /Zi ..\test_memcpy.cpp memcpy.obj
 
+ml.exe /W3 /WX /c /Zi ..\memset.asm
+cl.exe /W3 /WX /Od /Zi ..\test_memset.cpp memset.obj
+
 popd

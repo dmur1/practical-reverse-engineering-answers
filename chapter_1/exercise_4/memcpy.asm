@@ -2,7 +2,7 @@
 .code
 
 ; extern "C" void* _memcpy_1( void* dst, void* src, size_t n )
-; using repne movsb without a zero test on size
+; using rep movsb without a zero test on size
 _memcpy_1 proc
     push    edi
     push    esi
@@ -17,7 +17,7 @@ _memcpy_1 proc
 _memcpy_1 endp
 
 ; extern "C" void* _memcpy_2( void* dst, void* src, size_t n )
-; using repne movsb with a zero test on size
+; using rep movsb with a zero test on size
 _memcpy_2 proc
     push    edi
     push    esi

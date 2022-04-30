@@ -36,7 +36,7 @@ _memset_2 endp
 _memset_3 proc
     push    edi
     mov     ecx, dword ptr [esp+16] ; size_t n
-    mov     eax, dword ptr [esp+12] ; int c
+    movzx   eax, byte ptr [esp+12]  ; int c
     mov     edi, dword ptr [esp+8]  ; void* s
     imul    eax, eax, 01010101h
     mov     edx, ecx
@@ -56,7 +56,7 @@ _memset_3 endp
 _memset_4 proc
     push    edi
     mov     ecx, dword ptr [esp+16] ; size_t n
-    mov     eax, dword ptr [esp+12] ; int c
+    movzx   eax, byte ptr [esp+12]  ; int c
     mov     edi, dword ptr [esp+8]  ; void* s
     mov     edx, ecx
     shr     ecx, 2

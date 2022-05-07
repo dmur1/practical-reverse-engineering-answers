@@ -25,4 +25,31 @@ _strcmp_1_loc_3:
     ret
 _strcmp_1 endp
 
+; extern "C" int strcmp_2( char const* s1, char const* s2 )
+; using movzx/cmp based on https://github.com/torvalds/linux/blob/master/arch/x86/lib/string_32.c#L96
+_strcmp_2 proc
+    push    esi
+    push    edi
+    mov     esi, dword ptr [esp+12]
+    mov     edi, dword ptr [esp+16]
+    xor     ecx, ecx
+_strcmp_2_loc_1:
+    movzx   eax, byte ptr [esi+ecx]
+    movzx   edx, byte ptr [edi+ecx]
+    cmp     eax, edx
+    jne     _strcmp_2_loc_2
+    inc     ecx
+    test    eax, eax
+    jne     _strcmp_2_loc_1
+    xor     eax, eax
+    jmp     _strcmp_3_loc_3
+_strcmp_2_loc_2:
+    sbb     eax, eax
+    or      al, 1
+_strcmp_3_loc_3:
+    pop     edi
+    pop     esi
+    ret
+_strcmp_2 endp
+
 end
